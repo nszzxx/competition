@@ -25,3 +25,8 @@ logging:
   level:
     com.cdnu.cgi.mapper: debug
     org.springframework.jdbc: debug
+
+# 添加自定义的文件存储配置
+app:
+  file:
+    upload-dir: E:/apps/xampp/htdocs

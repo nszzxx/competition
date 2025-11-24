@@ -7,6 +7,7 @@ import com.cdnu.cgi.service.User.ProjectService;
 import com.cdnu.cgi.service.config.ConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,10 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectMapper projectMapper;
     private final ConfigService configService;
+
+
+    @Value("${app.file.upload-dir}")
+    private String storageRootPath;
 
     @Override
     public String uploadProjectDocument(Long competitionId, Long teamId, Long userId, String participationMode, MultipartFile file) {
@@ -69,7 +74,19 @@ public class ProjectServiceImpl implements ProjectService {
             if (projectPath.startsWith("http://")) {
                 // 如果是URL，需要提取路径部分并映射到文件系统
                 // 这里需要根据实际部署情况调整
-                basePath = "E:\\apps\\xampp\\htdocs\\graduate\\project"; // 默认上传路径
+                String relativePath = "/graduate/project";
+                // 简单的解析逻辑
+                try {
+                    String pathPart = projectPath.substring(projectPath.indexOf("://") + 3);
+                    if(pathPart.contains("/")) {
+                        relativePath = pathPart.substring(pathPart.indexOf("/"));
+                    }
+                } catch (Exception e) {
+                    log.warn("解析项目路径URL失败，使用默认相对路径", e);
+                }
+                basePath = Paths.get(storageRootPath + relativePath).toString();
+            }else {
+                basePath = projectPath;
             }
 
             Path uploadPath = Paths.get(basePath);

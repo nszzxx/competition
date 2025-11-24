@@ -11,6 +11,7 @@ import com.cdnu.cgi.service.User.UserService;
 import com.cdnu.cgi.service.config.ConfigService;
 import com.cdnu.cgi.util.MD5Util;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService {
     private final UserHonourMapper userHonourMapper;
     private final ConfigService configService;
 
+    @Value("${app.file.upload-dir}")
+    private String storageRootPath;
+
     @Override
     public List<User> getAllUsers() {
         return userMapper.selectAll();
@@ -55,7 +59,7 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
-    
+
     @Override
     public String updateUser(User user) {
         try {
@@ -322,25 +326,31 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 将URL路径转换为文件系统路径
-     * 例如：http://localhost:82/graduate/avatar/ -> E:/apps/xampp/htdocs/graduate/avatar/
      */
     private String convertUrlToFilePath(String urlPath) {
         // Apache服务器的根目录路径
-        String apacheRoot = "E:/apps/xampp/htdocs";
-
+        String relativePath = urlPath;
         if (urlPath.contains("://")) {
-            // 提取路径部分，例如从 "http://localhost:82/graduate/avatar/" 提取 "/graduate/avatar/"
-            String path = urlPath.substring(urlPath.indexOf("://") + 3);
-            if (path.contains("/")) {
-                path = path.substring(path.indexOf("/"));
+            // 提取路径部分
+            relativePath = urlPath.substring(urlPath.indexOf("://") + 3);
+            if (relativePath.contains("/")) {
+                relativePath = relativePath.substring(relativePath.indexOf("/"));
+            } else {
+                relativePath = "/";
             }
-            // 移除末尾的斜杠
-            if (path.endsWith("/")) {
-                path = path.substring(0, path.length() - 1);
-            }
-            // 拼接Apache根目录和路径
-            return apacheRoot + path.replace("/", File.separator);
         }
-        return urlPath;
+
+        // 如果不是以 / 开头，补上
+        if (!relativePath.startsWith("/") && !relativePath.startsWith("\\")) {
+            relativePath = File.separator + relativePath;
+        }
+
+        // 确保使用系统正确的分隔符
+        relativePath = relativePath.replace("/", File.separator);
+
+        // 拼接配置的根目录和相对路径
+        // 最终路径类似：./uploads/graduate/avatar/
+        return Paths.get(storageRootPath).toString() + relativePath;
+
     }
 }
