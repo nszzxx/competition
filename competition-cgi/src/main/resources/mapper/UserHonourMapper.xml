@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.UserHonourMapper">
+
+    <!-- 用户荣誉结果映射 -->
+    <resultMap id="UserHonourResultMap" type="com.cdnu.cgi.entity.UserHonour">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="honourTitle" column="honour_title"/>
+        <result property="description" column="description"/>
+        <result property="obtainedTime" column="obtained_time"/>
+        <result property="certificateImageUrl" column="certificate_image_url"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <!-- 根据ID查找用户荣誉 -->
+    <select id="selectById" resultMap="UserHonourResultMap">
+        SELECT * FROM user_honours WHERE id = #{id}
+    </select>
+
+    <!-- 根据用户ID查找荣誉 -->
+    <select id="selectByUserId" resultMap="UserHonourResultMap">
+        SELECT * FROM user_honours WHERE user_id = #{userId} ORDER BY obtained_time DESC
+    </select>
+
+    <!-- 根据荣誉标题查找 -->
+    <select id="selectByHonourTitle" resultMap="UserHonourResultMap">
+        SELECT * FROM user_honours WHERE honour_title = #{honourTitle} ORDER BY obtained_time DESC
+    </select>
+
+    <!-- 根据用户ID和荣誉标题查找 -->
+    <select id="selectByUserIdAndHonourTitle" resultMap="UserHonourResultMap">
+        SELECT * FROM user_honours WHERE user_id = #{userId} AND honour_title = #{honourTitle}
+    </select>
+
+    <!-- 检查用户是否拥有某项荣誉 -->
+    <select id="existsByUserIdAndHonourTitle" resultType="boolean">
+        SELECT COUNT(*) > 0 FROM user_honours 
+        WHERE user_id = #{userId} AND honour_title = #{honourTitle}
+    </select>
+
+    <!-- 统计拥有某项荣誉的用户数量 -->
+    <select id="countByHonourTitle" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT user_id) FROM user_honours WHERE honour_title = #{honourTitle}
+    </select>
+
+    <!-- 获取所有荣誉标题列表（去重） -->
+    <select id="selectAllDistinctHonourTitles" resultType="string">
+        SELECT DISTINCT honour_title FROM user_honours ORDER BY honour_title
+    </select>
+
+    <!-- 查询所有用户荣誉 -->
+    <select id="selectAll" resultMap="UserHonourResultMap">
+        SELECT * FROM user_honours ORDER BY obtained_time DESC
+    </select>
+
+    <!-- 插入用户荣誉 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.UserHonour" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_honours (user_id, honour_title, description, obtained_time, certificate_image_url, created_at)
+        VALUES (#{userId}, #{honourTitle}, #{description}, #{obtainedTime}, #{certificateImageUrl}, #{createdAt})
+    </insert>
+
+    <!-- 更新用户荣誉 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.UserHonour">
+        UPDATE user_honours 
+        SET user_id = #{userId}, honour_title = #{honourTitle}, description = #{description}, 
+            obtained_time = #{obtainedTime}, certificate_image_url = #{certificateImageUrl}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID删除用户荣誉 -->
+    <delete id="deleteById">
+        DELETE FROM user_honours WHERE id = #{id}
+    </delete>
+
+    <!-- 删除用户的所有荣誉 -->
+    <delete id="deleteByUserId">
+        DELETE FROM user_honours WHERE user_id = #{userId}
+    </delete>
+
+    <!-- 统计用户荣誉总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM user_honours
+    </select>
+
+</mapper>

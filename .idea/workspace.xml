@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="91a5c566-ca29-4dc2-a364-c430a6db2999" name="Changes" comment="竞赛系统">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/claude" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/CompetitionCgiApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/Enum/AIServiceEnums.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/Enum/ConfigEnums.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/AIConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/AIServiceConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/GlobalConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/MyBatisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/ParticipateConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/UserConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/AIController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/CompetitionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/ProjectController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/TeamApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/TeamController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/controller/UserHonourController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/AIAnalysisRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/AIAnalysisResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/AIChatRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/AIChatResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/AIRecommendationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/AIRecommendationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/CompetitionTeamCardDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/dto/UserCompetitionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/AIChatLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/Competition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/CompetitionRecommendation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/CompetitionTeamUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/Project.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/Team.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/TeamApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/TeamMember.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/TeamMemberDetailInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/UserComprehensiveInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/UserHonour.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/entity/UserSkill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/AIChatLogMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/CompetitionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/CompetitionRecommendationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/CompetitionTeamUserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/ConfigMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/ProjectMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/TeamApplicationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/TeamMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/TeamMemberMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/UserComprehensiveInfoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/UserHonourMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/mapper/UserSkillMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/AIService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/CompetitionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/MatchScoreService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/ProjectService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/TeamService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/impl/AIServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/impl/CompetitionServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/impl/MatchScoreServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/impl/ProjectServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/impl/TeamServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/User/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/config/ConfigService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/service/config/impl/ConfigServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/util/AIModelSwitcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/util/AIServiceHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/util/CheckUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/util/JsonUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/util/MD5Util.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/java/com/cdnu/cgi/util/PromptManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/ai-prompts.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/application-mybatis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/AIChatLogMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/CompetitionMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/CompetitionRecommendationMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/CompetitionTeamUserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/ConfigMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/ProjectMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/TeamApplicationMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/TeamMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/TeamMemberMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/UserComprehensiveInfoMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/UserHonourMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/mapper/UserSkillMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/main/resources/sql/view1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/competition-cgi/src/test/java/com/cdnu/cgi/CompetitionCgiApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kamacoder-2JZGH8fyflA.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/graduate/avatar/6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uploads/graduate/avatar/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/bug_img/2025-10-20-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/bug_img/2025-10-20-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/bug_img/2025-10-20-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/public/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/App.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/AIAdviceModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/AIAnalysisResult.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/AIAssistant.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/AISearchBox.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/AIUserProfile.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/LearningPath.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/RecommendationCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/SkillAnalysis.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/ai/TrendsAnalysis.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/auth/LoginModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/auth/RegisterModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/common/EmptyState.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/common/Header.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/common/LoadingState.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/common/MessageToast.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/competition/CompetitionCard.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/competition/CompetitionSelector.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/competition/Participate.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/layout/AppFooter.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/layout/AppHeader.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/layout/FeatureSection.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/layout/HeroBanner.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/layout/PageHeader.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/profile/Application.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/profile/CompetitionControl.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/profile/ControlHeader.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/profile/MemberDetail.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/profile/ProfileControl.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/profile/TeamControl.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/search/SearchHistory.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/search/SearchInput.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/search/SearchResults.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/team/MemberInfo.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/team/TeamCreateModal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/components/team/TeamInfo.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/CompetitionCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/CompetitionDetail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/participate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useAI.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useApplication.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useCompetition.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useCompetitionControl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useCompetitions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useHome.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useProfileControl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useSearchHistory.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useTeam.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useTeamControl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useTeamCreate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useTeamList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useTeamember.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useUserList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/composables/useVoiceRecognition.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/ai-assistant.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/ai-center.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/ai-component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/application.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/competition-component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/competition-control.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/components.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/delete-confirm.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/individual-cards.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/layouts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/participate.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/profile-control.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/team-control.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/team-modal.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/teamember.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/text-formatter.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/variables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/views-ai.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/views-competition.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/views-home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/styles/views-team.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/utils/aiApi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/utils/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/utils/message.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/utils/performance.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/utils/textFormatter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/AICenter.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/CompetitionDetail.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/CompetitionList.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/Home.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/ParticipateTest.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/Profile.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/TeamCreate.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/TeamList.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/src/views/TestProfile.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vue3-web/vite.config.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/competition-cgi">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="competiton_sys" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/nszzxx/competition.git",
+    "accountId": "a3add7c5-ad6f-4907-8ef5-ca5a363b6aa5"
+  }
+}]]></component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\ProgramFiles\apache\repository" />
+        <option name="userSettingsFile" value="D:\ProgramFiles\apache\maven\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="335cLzXXjUiRlwKzvQzT4FGaXfM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build competiton_sys.executor": "Run",
+    "Gradle.competition-cgi [build].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
+    "Notification.DoNotAsk-Database detector": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.CompetitionCgiApplication.executor": "Run",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "H:/Workplace/graduate/RuoYi-Vue",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.17773438",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\app\\IntelliJ IDEA 2024.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\Workplace\graduate\competiton_sys\competition-cgi\src\main\resources" />
+      <recent name="H:\Workplace\graduate\competiton_sys\competition-cgi\src\main\java\com\cdnu\cgi" />
+      <recent name="H:\Workplace\graduate\competiton_sys\competition-cgi" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.CompetitionCgiApplication">
+    <configuration name="competition-cgi [build]" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/competition-cgi" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="competition-cgi [build]" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/competition-cgi" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CompetitionCgiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="competiton_sys.competition-cgi.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cdnu.cgi.CompetitionCgiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompetitionCgiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="competiton_sys.competition-cgi.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cdnu.cgi.CompetitionCgiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompetitionCgiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="competiton_sys.competition-cgi.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.cdnu.cgi.CompetitionCgiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="91a5c566-ca29-4dc2-a364-c430a6db2999" name="Changes" comment="" />
+      <created>1758610323722</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758610323722</updated>
+      <workItem from="1758610324906" duration="826000" />
+      <workItem from="1758611178149" duration="378000" />
+      <workItem from="1758611572447" duration="60000" />
+      <workItem from="1758611860231" duration="2726000" />
+      <workItem from="1758615058612" duration="832000" />
+      <workItem from="1758616088186" duration="730000" />
+      <workItem from="1758616852055" duration="1239000" />
+      <workItem from="1758618122937" duration="717000" />
+      <workItem from="1758618860134" duration="157000" />
+      <workItem from="1758619024862" duration="10000" />
+      <workItem from="1758619039995" duration="394000" />
+      <workItem from="1758619439401" duration="465000" />
+      <workItem from="1758762803092" duration="1116000" />
+      <workItem from="1758763949313" duration="320000" />
+      <workItem from="1758764313134" duration="7792000" />
+      <workItem from="1758779507028" duration="316000" />
+      <workItem from="1758779846851" duration="6069000" />
+      <workItem from="1758790643997" duration="1694000" />
+      <workItem from="1759039234870" duration="12119000" />
+      <workItem from="1759107245718" duration="24110000" />
+      <workItem from="1759193802013" duration="5066000" />
+      <workItem from="1759200784816" duration="2394000" />
+      <workItem from="1759972256736" duration="9561000" />
+      <workItem from="1760058593790" duration="19070000" />
+      <workItem from="1760144574765" duration="5479000" />
+      <workItem from="1760316942631" duration="15157000" />
+      <workItem from="1760403603820" duration="2929000" />
+      <workItem from="1760410680914" duration="6090000" />
+      <workItem from="1760489590059" duration="23185000" />
+      <workItem from="1760576053182" duration="11593000" />
+      <workItem from="1760662665165" duration="1358000" />
+      <workItem from="1760667060915" duration="26000" />
+      <workItem from="1760948331627" duration="1000" />
+      <workItem from="1760948374313" duration="2745000" />
+      <workItem from="1761008113022" duration="21748000" />
+      <workItem from="1761094694193" duration="1106000" />
+      <workItem from="1761095938687" duration="5167000" />
+      <workItem from="1761125871711" duration="11107000" />
+      <workItem from="1761211705761" duration="164000" />
+      <workItem from="1761211886006" duration="76000" />
+      <workItem from="1761268140951" duration="13885000" />
+      <workItem from="1761526628162" duration="6810000" />
+      <workItem from="1761612949501" duration="3216000" />
+      <workItem from="1762152417152" duration="499000" />
+      <workItem from="1763607744358" duration="12053000" />
+      <workItem from="1763686634706" duration="2388000" />
+      <workItem from="1763689626114" duration="391000" />
+      <workItem from="1763692045765" duration="11066000" />
+      <workItem from="1763946040669" duration="5179000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="竞赛系统" />
+    <option name="LAST_COMMIT_MESSAGE" value="竞赛系统" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.CompetitionRecommendationMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.CompetitionRecommendation">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="competition_id" property="competitionId" jdbcType="BIGINT"/>
+        <result column="score" property="score" jdbcType="FLOAT"/>
+        <result column="suggestions" property="suggestions" jdbcType="LONGVARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, user_id, competition_id, score, suggestions, created_at
+    </sql>
+
+    <!-- 根据ID查找推荐记录 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competition_recommendation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户ID查找推荐记录 -->
+    <select id="selectByUserIdOrderByScoreDesc" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competition_recommendation
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+        ORDER BY score DESC
+    </select>
+
+    <!-- 根据用户ID和竞赛ID查找推荐记录 -->
+    <select id="selectByUserIdAndCompetitionId" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competition_recommendation
+        WHERE user_id = #{userId,jdbcType=BIGINT} 
+        AND competition_id = #{competitionId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 查找用户的前N个推荐 -->
+    <select id="selectTopRecommendationsByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competition_recommendation
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+        ORDER BY score DESC
+        LIMIT 10
+    </select>
+
+    <!-- 根据分数范围查找推荐 -->
+    <select id="selectByUserIdAndScoreGreaterThanEqual" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competition_recommendation
+        WHERE user_id = #{userId,jdbcType=BIGINT} 
+        AND score >= #{minScore,jdbcType=FLOAT}
+        ORDER BY score DESC
+    </select>
+
+    <!-- 查询所有推荐记录 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competition_recommendation
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 插入推荐记录 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.CompetitionRecommendation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO competition_recommendation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="competitionId != null">competition_id,</if>
+            <if test="score != null">score,</if>
+            <if test="suggestions != null">suggestions,</if>
+            <if test="createdAt != null">created_at,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="competitionId != null">#{competitionId,jdbcType=BIGINT},</if>
+            <if test="score != null">#{score,jdbcType=FLOAT},</if>
+            <if test="suggestions != null">#{suggestions,jdbcType=LONGVARCHAR},</if>
+            <if test="createdAt != null">#{createdAt,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新推荐记录 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.CompetitionRecommendation">
+        UPDATE competition_recommendation
+        <set>
+            <if test="userId != null">user_id = #{userId,jdbcType=BIGINT},</if>
+            <if test="competitionId != null">competition_id = #{competitionId,jdbcType=BIGINT},</if>
+            <if test="score != null">score = #{score,jdbcType=FLOAT},</if>
+            <if test="suggestions != null">suggestions = #{suggestions,jdbcType=LONGVARCHAR},</if>
+            <if test="createdAt != null">created_at = #{createdAt,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据ID删除推荐记录 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM competition_recommendation
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 删除用户的所有推荐记录 -->
+    <delete id="deleteByUserId" parameterType="java.lang.Long">
+        DELETE FROM competition_recommendation
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 统计推荐记录总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM competition_recommendation
+    </select>
+
+</mapper>

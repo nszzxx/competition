@@ -1,0 +1,529 @@
+.application-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.application-tabs {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.tab-button:hover {
+  background: #f3f4f6;
+  color: #667eea;
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.tab-icon {
+  font-size: 18px;
+}
+
+.applications-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.applications-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.applications-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.batch-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.batch-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.batch-approve {
+  background: #10b981;
+  color: white;
+}
+
+.batch-approve:hover {
+  background: #059669;
+}
+
+.batch-reject {
+  background: #ef4444;
+  color: white;
+}
+
+.batch-reject:hover {
+  background: #dc2626;
+}
+
+.applications-content {
+  padding: 24px;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.empty-state .empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.applications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.application-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  background: white;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.application-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.applicant-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.applicant-major {
+  color: #667eea;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.inviter-info {
+  color: #10b981;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inviter-info::before {
+  content: '👤';
+  font-size: 12px;
+}
+
+.application-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.status-approved {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.team-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-label {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 15px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.application-message {
+  background: #f0f9ff;
+  border-left: 4px solid #0ea5e9;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 16px;
+}
+
+.message-label {
+  font-size: 12px;
+  color: #0369a1;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.message-content {
+  color: #0c4a6e;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.application-time {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.application-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.btn-approve {
+  background: #10b981;
+  color: white;
+}
+
+.btn-approve:hover {
+  background: #059669;
+}
+
+.btn-reject {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-reject:hover {
+  background: #dc2626;
+}
+
+.btn-info {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-info:hover {
+  background: #2563eb;
+}
+
+.btn-cancel {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #d97706;
+}
+
+.btn-disabled {
+  background: #9ca3af;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.btn-disabled:hover {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .application-page {
+    padding: 16px;
+  }
+  
+  .application-tabs {
+    gap: 8px;
+    padding: 6px;
+  }
+  
+  .tab-button {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  .applications-container {
+    padding: 16px;
+  }
+  
+  .application-card {
+    padding: 20px;
+  }
+  
+  .team-info {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .application-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .batch-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .batch-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .application-card {
+    padding: 16px;
+  }
+  
+  .applicant-info h4 {
+    font-size: 16px;
+  }
+  
+  .team-info {
+    padding: 12px;
+  }
+  
+  .application-time {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+/* 发送的申请样式调整 */
+.sent-application .applicant-info h4 {
+  color: #667eea;
+}
+
+.sent-application .team-info {
+  background: #f0f9ff;
+  border-left: 4px solid #667eea;
+}
+
+.sent-application .application-message {
+  background: #fef3c7;
+  border-left-color: #f59e0b;
+}
+
+.sent-application .message-label {
+  color: #d97706;
+}
+
+.sent-application .message-content {
+  color: #92400e;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .applications-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .batch-actions {
+    justify-content: center;
+  }
+  
+  .team-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .application-actions {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  
+  .tab-button .tab-text {
+    display: none;
+  }
+}
+
+/* 动画效果 */
+.application-card {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 状态指示器 */
+.status-indicator {
+  position: relative;
+}
+
+.status-indicator::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* 消息气泡样式 */
+.message-bubble {
+  position: relative;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+
+.message-bubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 16px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #f8fafc;
+}
+
+/* 加载动画 */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f4f6;
+  border-radius: 50%;
+  border-top-color: #667eea;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

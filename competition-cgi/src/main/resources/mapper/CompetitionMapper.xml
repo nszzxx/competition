@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.CompetitionMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.Competition">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="organizer" property="organizer" jdbcType="VARCHAR"/>
+        <result column="difficulty" property="difficulty" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="track" property="track" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="LONGVARCHAR"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="official_url" property="officialUrl" jdbcType="VARCHAR"/>
+        <result column="tags" property="tags" jdbcType="VARCHAR"/>
+        <result column="rules_json" property="rulesJson" jdbcType="LONGVARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, title, organizer, difficulty, category, track, description, 
+        start_time, end_time, official_url, tags, rules_json, created_at,
+        pati_starttime, pati_endtime, participation_mode, min_team_size, max_team_size
+    </sql>
+
+    <!-- 根据ID查找竞赛 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competitions
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据类别查找竞赛 -->
+    <select id="selectByCategory" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competitions
+        WHERE category = #{category,jdbcType=VARCHAR}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据标题模糊查询 -->
+    <select id="selectByTitleContaining" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competitions
+        WHERE title LIKE CONCAT('%', #{title,jdbcType=VARCHAR}, '%')
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据标题模糊查询（忽略大小写） -->
+    <select id="selectByTitleContainingIgnoreCase" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competitions
+        WHERE LOWER(title) LIKE LOWER(CONCAT('%', #{title,jdbcType=VARCHAR}, '%'))
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 查找正在进行的竞赛 -->
+    <select id="selectActiveCompetitions" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competitions
+        WHERE start_time &lt;= NOW() AND end_time &gt;= NOW()
+        ORDER BY end_time ASC
+    </select>
+
+    <!-- 根据标签查找竞赛 -->
+    <select id="selectByTagsContaining" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM competitions
+        WHERE tags LIKE CONCAT('%', #{tag,jdbcType=VARCHAR}, '%')
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 查询所有竞赛 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM competitions
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 插入竞赛 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.Competition" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO competitions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="organizer != null">organizer,</if>
+            <if test="difficulty != null">difficulty,</if>
+            <if test="category != null">category,</if>
+            <if test="track != null">track,</if>
+            <if test="description != null">description,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="officialUrl != null">official_url,</if>
+            <if test="tags != null">tags,</if>
+            <if test="rulesJson != null">rules_json,</if>
+            <if test="createdAt != null">created_at,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+            <if test="organizer != null">#{organizer,jdbcType=VARCHAR},</if>
+            <if test="difficulty != null">#{difficulty,jdbcType=VARCHAR},</if>
+            <if test="category != null">#{category,jdbcType=VARCHAR},</if>
+            <if test="track != null">#{track,jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description,jdbcType=LONGVARCHAR},</if>
+            <if test="startTime != null">#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">#{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="officialUrl != null">#{officialUrl,jdbcType=VARCHAR},</if>
+            <if test="tags != null">#{tags,jdbcType=VARCHAR},</if>
+            <if test="rulesJson != null">#{rulesJson,jdbcType=LONGVARCHAR},</if>
+            <if test="createdAt != null">#{createdAt,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新竞赛信息 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.Competition">
+        UPDATE competitions
+        <set>
+            <if test="title != null">title = #{title,jdbcType=VARCHAR},</if>
+            <if test="organizer != null">organizer = #{organizer,jdbcType=VARCHAR},</if>
+            <if test="difficulty != null">difficulty = #{difficulty,jdbcType=VARCHAR},</if>
+            <if test="category != null">category = #{category,jdbcType=VARCHAR},</if>
+            <if test="track != null">track = #{track,jdbcType=VARCHAR},</if>
+            <if test="description != null">description = #{description,jdbcType=LONGVARCHAR},</if>
+            <if test="startTime != null">start_time = #{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="endTime != null">end_time = #{endTime,jdbcType=TIMESTAMP},</if>
+            <if test="officialUrl != null">official_url = #{officialUrl,jdbcType=VARCHAR},</if>
+            <if test="tags != null">tags = #{tags,jdbcType=VARCHAR},</if>
+            <if test="rulesJson != null">rules_json = #{rulesJson,jdbcType=LONGVARCHAR},</if>
+            <if test="createdAt != null">created_at = #{createdAt,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据ID删除竞赛 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM competitions
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 统计竞赛总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM competitions
+    </select>
+
+    <!-- 插入报名申请 -->
+    <insert id="insertTeamApplication" parameterType="com.cdnu.cgi.entity.TeamApplication" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO team_applications
+        (user_id, team_id, leader_id, application_time, status, rejection_reason, created_at, updated_at, competition_id, type)
+        VALUES
+        (#{userId,jdbcType=BIGINT}, #{teamId,jdbcType=BIGINT}, #{leaderId,jdbcType=BIGINT},
+         #{applicationTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR},
+         #{rejectionReason,jdbcType=LONGVARCHAR}, #{createdAt,jdbcType=TIMESTAMP},
+         #{updatedAt,jdbcType=TIMESTAMP}, #{competitionId,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR})
+    </insert>
+</mapper>

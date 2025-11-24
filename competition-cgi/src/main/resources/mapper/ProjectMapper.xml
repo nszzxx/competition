@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.ProjectMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.Project">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="competition_id" property="competitionId" jdbcType="BIGINT"/>
+        <result column="team_id" property="teamId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="LONGVARCHAR"/>
+        <result column="document_url" property="documentUrl" jdbcType="VARCHAR"/>
+        <result column="participation_mode" property="participationMode" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, competition_id, team_id, user_id, title, description, document_url, participation_mode, created_at, updated_at
+    </sql>
+
+    <!-- 根据ID查找项目 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM projects
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据团队ID查找项目 -->
+    <select id="selectByTeamId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM projects
+        WHERE team_id = #{teamId,jdbcType=BIGINT}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据竞赛ID和团队ID查找项目 -->
+    <select id="selectByCompetitionIdAndTeamId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM projects
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+        AND team_id = #{teamId,jdbcType=BIGINT}
+        LIMIT 1
+    </select>
+
+    <!-- 根据竞赛ID和用户ID查找项目 -->
+    <select id="selectByCompetitionIdAndUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM projects
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+        AND user_id = #{userId,jdbcType=BIGINT}
+        LIMIT 1
+    </select>
+
+    <!-- 根据标题模糊查询 -->
+    <select id="selectByTitleContaining" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM projects
+        WHERE title LIKE CONCAT('%', #{title,jdbcType=VARCHAR}, '%')
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 检查团队是否已有项目 -->
+    <select id="existsByTeamId" parameterType="java.lang.Long" resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM projects
+        WHERE team_id = #{teamId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 查询所有项目 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM projects
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 插入项目 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.Project" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO projects
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="competitionId != null">competition_id,</if>
+            <if test="teamId != null">team_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="title != null">title,</if>
+            <if test="description != null">description,</if>
+            <if test="documentUrl != null">document_url,</if>
+            <if test="participationMode != null">participation_mode,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="competitionId != null">#{competitionId,jdbcType=BIGINT},</if>
+            <if test="teamId != null">#{teamId,jdbcType=BIGINT},</if>
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description,jdbcType=LONGVARCHAR},</if>
+            <if test="documentUrl != null">#{documentUrl,jdbcType=VARCHAR},</if>
+            <if test="participationMode != null">#{participationMode,jdbcType=VARCHAR},</if>
+            <if test="createdAt != null">#{createdAt,jdbcType=TIMESTAMP},</if>
+            <if test="updatedAt != null">#{updatedAt,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新项目信息 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.Project">
+        UPDATE projects
+        <set>
+            <if test="competitionId != null">competition_id = #{competitionId,jdbcType=BIGINT},</if>
+            <if test="teamId != null">team_id = #{teamId,jdbcType=BIGINT},</if>
+            <if test="userId != null">user_id = #{userId,jdbcType=BIGINT},</if>
+            <if test="title != null">title = #{title,jdbcType=VARCHAR},</if>
+            <if test="description != null">description = #{description,jdbcType=LONGVARCHAR},</if>
+            <if test="documentUrl != null">document_url = #{documentUrl,jdbcType=VARCHAR},</if>
+            <if test="participationMode != null">participation_mode = #{participationMode,jdbcType=VARCHAR},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据ID删除项目 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM projects
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 统计项目总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM projects
+    </select>
+
+</mapper>

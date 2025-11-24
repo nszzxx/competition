@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.AIChatLogMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.AIChatLog">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="input" property="input" jdbcType="LONGVARCHAR"/>
+        <result column="response" property="response" jdbcType="LONGVARCHAR"/>
+        <result column="timestamp" property="timestamp" jdbcType="TIMESTAMP"/>
+        <result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, user_id, type, input, response, timestamp, group_id
+    </sql>
+
+    <!-- 根据用户ID和组ID查找聊天记录 -->
+    <select id="selectByUserIdAndGroupId" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM ai_chat_logs
+        WHERE user_id = #{userId,jdbcType=BIGINT} 
+        AND group_id = #{groupId,jdbcType=VARCHAR}
+        ORDER BY timestamp ASC
+    </select>
+
+    <!-- 根据用户ID和组ID删除聊天记录 -->
+    <delete id="deleteByUserIdAndGroupId">
+        DELETE FROM ai_chat_logs
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+        AND group_id = #{groupId,jdbcType=VARCHAR}
+    </delete>
+
+    <!-- 获取用户的聊天历史分组信息 - 修复版本 -->
+    <select id="selectChatHistoryGroupsByUserId" parameterType="java.lang.Long" resultType="java.util.HashMap">
+        SELECT 
+            t1.group_id as id,
+            t1.group_id as groupId,
+            COALESCE(t2.first_input, '新对话') as title,
+            COALESCE(t3.last_message, '点击查看详情') as lastMessage,
+            t1.last_timestamp as timestamp
+        FROM (
+            SELECT 
+                group_id,
+                MAX(timestamp) as last_timestamp
+            FROM ai_chat_logs 
+            WHERE user_id = #{userId,jdbcType=BIGINT}
+            AND group_id IS NOT NULL
+            GROUP BY group_id
+        ) t1
+        LEFT JOIN (
+            SELECT 
+                group_id,
+                input as first_input
+            FROM ai_chat_logs 
+            WHERE user_id = #{userId,jdbcType=BIGINT}
+            AND group_id IS NOT NULL
+            AND input IS NOT NULL
+            AND (group_id, timestamp) IN (
+                SELECT group_id, MIN(timestamp)
+                FROM ai_chat_logs 
+                WHERE user_id = #{userId,jdbcType=BIGINT}
+                AND group_id IS NOT NULL
+                AND input IS NOT NULL
+                GROUP BY group_id
+            )
+        ) t2 ON t1.group_id = t2.group_id
+        LEFT JOIN (
+            SELECT 
+                group_id,
+                COALESCE(input, response) as last_message
+            FROM ai_chat_logs 
+            WHERE user_id = #{userId,jdbcType=BIGINT}
+            AND group_id IS NOT NULL
+            AND (group_id, timestamp) IN (
+                SELECT group_id, MAX(timestamp)
+                FROM ai_chat_logs 
+                WHERE user_id = #{userId,jdbcType=BIGINT}
+                AND group_id IS NOT NULL
+                GROUP BY group_id
+            )
+        ) t3 ON t1.group_id = t3.group_id
+        ORDER BY t1.last_timestamp DESC
+    </select>
+
+    <select id="selectBatchByUserIdAndGroupIds" resultType="com.cdnu.cgi.entity.AIChatLog">
+        SELECT * FROM ai_chat_logs
+        WHERE user_id = #{userId}
+        AND group_id IN
+        <foreach item="item" collection="groupIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY timestamp ASC
+    </select>
+
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.AIChatLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_chat_logs (user_id, type, input, response, timestamp, group_id)
+        VALUES (#{userId,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{input,jdbcType=LONGVARCHAR},
+                #{response,jdbcType=LONGVARCHAR}, #{timestamp,jdbcType=TIMESTAMP}, #{groupId,jdbcType=VARCHAR})
+    </insert>
+
+<!--    删除-->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM ai_chat_logs WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+
+</mapper>

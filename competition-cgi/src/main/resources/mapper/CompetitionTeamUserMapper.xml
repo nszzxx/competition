@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.CompetitionTeamUserMapper">
+
+    <!-- 根据竞赛ID查找所有参赛记录 -->
+    <select id="selectByCompetitionId" parameterType="java.lang.Long" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据团队ID查找所有参赛团队 -->
+    <select id="selectByTeamId" parameterType="java.lang.Long" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE team_id = #{teamId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户ID查找参赛成员 -->
+    <select id="selectByUserId" parameterType="java.lang.Long" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户ID和竞赛ID查找参赛记录 -->
+    <select id="selectByUserIdAndCompetitionId" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+          AND competition_id = #{competitionId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户ID查找参赛成员 -->
+    <select id="selectIndividualByUserId" parameterType="java.lang.Long" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+          AND team_id IS NULL
+    </select>
+
+    <!-- 查询某竞赛所有团队参赛详情 -->
+    <select id="getCompetitionTeamParticipants" parameterType="java.lang.Long" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+            AND team_id IS NOT NULL
+    </select>
+
+    <!-- 查询某竞赛所有个人参赛详情 -->
+    <select id="getCompetitionIndividualParticipants" parameterType="java.lang.Long" resultType="com.cdnu.cgi.entity.CompetitionTeamUser">
+        SELECT *
+        FROM competition_team_user
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+          AND team_id IS NULL
+    </select>
+
+    <!-- 根据竞赛ID和用户ID删除参赛记录（个人参赛） -->
+    <delete id="deleteByCompetitionIdAndUserId">
+        DELETE FROM competition_team_user
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+          AND user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 根据竞赛ID和团队ID删除所有参赛记录（团队参赛） -->
+    <delete id="deleteByCompetitionIdAndTeamId">
+        DELETE FROM competition_team_user
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+          AND team_id = #{teamId,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 精确删除某个用户在某个竞赛某个团队的参赛记录 -->
+    <delete id="deleteByCompetitionIdTeamIdAndUserId">
+        DELETE FROM competition_team_user
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+          AND team_id = #{teamId,jdbcType=BIGINT}
+          AND user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+</mapper>

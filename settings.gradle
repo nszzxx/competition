@@ -1,0 +1,3 @@
+rootProject.name = 'competiton_sys'
+include 'competition-cgi'
+

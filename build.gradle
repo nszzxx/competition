@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.18' apply false
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE' apply false
+    id 'java'
+}
+
+group = 'com.cdnu'
+version = '1.0-SNAPSHOT'
+
+allprojects {
+    group = 'com.cdnu'
+    version = '0.0.1-SNAPSHOT'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.7.18"
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

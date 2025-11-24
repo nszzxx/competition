@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.UserSkillMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.UserSkill">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="skill" property="skill" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, user_id, skill
+    </sql>
+
+    <!-- 根据ID查找用户技能 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM user_skills
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户ID查找技能 -->
+    <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM user_skills
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+        ORDER BY skill ASC
+    </select>
+
+    <!-- 根据技能名称查找用户 -->
+    <select id="selectBySkill" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM user_skills
+        WHERE skill = #{skill,jdbcType=VARCHAR}
+        ORDER BY user_id ASC
+    </select>
+
+    <!-- 根据用户ID和技能名称查找 -->
+    <select id="selectByUserIdAndSkill" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM user_skills
+        WHERE user_id = #{userId,jdbcType=BIGINT} 
+        AND skill = #{skill,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 检查用户是否拥有某项技能 -->
+    <select id="existsByUserIdAndSkill" resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM user_skills
+        WHERE user_id = #{userId,jdbcType=BIGINT} 
+        AND skill = #{skill,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 统计拥有某项技能的用户数量 -->
+    <select id="countBySkill" parameterType="java.lang.String" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM user_skills
+        WHERE skill = #{skill,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 获取所有技能列表（去重） -->
+    <select id="selectAllDistinctSkills" resultType="java.lang.String">
+        SELECT DISTINCT skill
+        FROM user_skills
+        ORDER BY skill ASC
+    </select>
+
+    <!-- 查询所有用户技能 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM user_skills
+        ORDER BY user_id ASC, skill ASC
+    </select>
+
+    <!-- 插入用户技能 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.UserSkill" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_skills
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="skill != null">skill,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="skill != null">#{skill,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新用户技能 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.UserSkill">
+        UPDATE user_skills
+        <set>
+            <if test="userId != null">user_id = #{userId,jdbcType=BIGINT},</if>
+            <if test="skill != null">skill = #{skill,jdbcType=VARCHAR},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据ID删除用户技能 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM user_skills
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 删除用户的所有技能 -->
+    <delete id="deleteByUserId" parameterType="java.lang.Long">
+        DELETE FROM user_skills
+        WHERE user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 统计用户技能总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM user_skills
+    </select>
+
+</mapper>
