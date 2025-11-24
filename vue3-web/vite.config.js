@@ -12,7 +12,7 @@ export default defineConfig({
         rewrite: path => path
       },
       '/graduate': {
-        target: 'http://localhost:82',
+        target: 'http://localhost:8080',
         changeOrigin: true,
         rewrite: path => path
       }
