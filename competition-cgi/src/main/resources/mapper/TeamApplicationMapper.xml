@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.TeamApplicationMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.TeamApplication">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="team_id" property="teamId" jdbcType="BIGINT"/>
+        <result column="leader_id" property="leaderId" jdbcType="BIGINT"/>
+        <result column="application_time" property="applicationTime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="VARCHAR" 
+                typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result column="rejection_reason" property="rejectionReason" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 带关联对象的结果映射 -->
+    <resultMap id="DetailResultMap" type="com.cdnu.cgi.entity.TeamApplication" extends="BaseResultMap">
+        <association property="user" javaType="com.cdnu.cgi.entity.User">
+            <id column="user_id" property="id"/>
+            <result column="user_username" property="username"/>
+            <result column="user_real_name" property="realName"/>
+            <result column="user_email" property="email"/>
+            <result column="user_avatar_url" property="avatarUrl"/>
+        </association>
+        <association property="team" javaType="com.cdnu.cgi.entity.Team">
+            <id column="team_id" property="id"/>
+            <result column="team_name" property="name"/>
+            <result column="team_description" property="description"/>
+            <result column="team_need_skills" property="needSkills"/>
+        </association>
+        <association property="leader" javaType="com.cdnu.cgi.entity.User">
+            <id column="leader_id" property="id"/>
+            <result column="leader_username" property="username"/>
+            <result column="leader_real_name" property="realName"/>
+            <result column="leader_email" property="email"/>
+        </association>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, user_id, team_id, leader_id, application_time, status, rejection_reason, created_at, updated_at, type
+    </sql>
+
+    <!-- 详细查询列 -->
+    <sql id="Detail_Column_List">
+        ta.id, ta.user_id, ta.team_id, ta.leader_id, ta.application_time, ta.status, ta.rejection_reason,
+        ta.created_at, ta.updated_at, ta.type,
+        u.username as user_username, u.real_name as user_real_name, u.email as user_email, u.avatar_url as user_avatar_url,
+        t.name as team_name, t.description as team_description, t.need_skills as team_need_skills,
+        l.username as leader_username, l.real_name as leader_real_name, l.email as leader_email
+    </sql>
+
+    <!-- 插入团队申请 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.TeamApplication" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO team_applications (user_id, team_id, leader_id, application_time, status, rejection_reason, type, created_at, updated_at)
+        VALUES (#{userId}, #{teamId}, #{leaderId}, #{applicationTime}, #{status}, #{rejectionReason}, #{type}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <!-- 根据ID更新团队申请 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.TeamApplication">
+        UPDATE team_applications
+        SET status = #{status},
+            rejection_reason = #{rejectionReason},
+            type = #{type},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID查询团队申请 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="DetailResultMap">
+        SELECT <include refid="Detail_Column_List"/>
+        FROM team_applications ta
+        LEFT JOIN users u ON ta.user_id = u.id
+        LEFT JOIN teams t ON ta.team_id = t.id
+        LEFT JOIN users l ON ta.leader_id = l.id
+        WHERE ta.id = #{id}
+    </select>
+
+    <!-- 根据ID删除团队申请 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM team_applications WHERE id = #{id}
+    </delete>
+
+    <!-- 根据用户ID和团队ID查询 -->
+    <select id="selectByUserIdAndTeamId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM team_applications
+        WHERE user_id = #{userId} AND team_id = #{teamId}
+        ORDER BY created_at DESC
+        LIMIT 1
+    </select>
+
+
+    <!-- 根据团队ID查询所有申请 -->
+    <select id="selectByTeamId" parameterType="java.lang.Long" resultMap="DetailResultMap">
+        SELECT <include refid="Detail_Column_List"/>
+        FROM team_applications ta
+        LEFT JOIN users u ON ta.user_id = u.id
+        LEFT JOIN teams t ON ta.team_id = t.id
+        LEFT JOIN users l ON ta.leader_id = l.id
+        WHERE ta.team_id = #{teamId}
+        ORDER BY ta.application_time DESC
+    </select>
+
+    <!-- 根据用户ID查询所有申请（包括作为申请人和作为队长的） -->
+    <select id="selectByUserId" parameterType="java.lang.Long" resultMap="DetailResultMap">
+        SELECT <include refid="Detail_Column_List"/>
+        FROM team_applications ta
+        LEFT JOIN users u ON ta.user_id = u.id
+        LEFT JOIN teams t ON ta.team_id = t.id
+        LEFT JOIN users l ON ta.leader_id = l.id
+        WHERE ta.user_id = #{userId} OR ta.leader_id = #{userId}
+        ORDER BY ta.application_time DESC
+    </select>
+
+    <!-- 根据用户ID和type查询 -->
+    <select id="selectByUserIdAndType" resultMap="DetailResultMap">
+        SELECT <include refid="Detail_Column_List"/>
+        FROM team_applications ta
+        LEFT JOIN users u ON ta.user_id = u.id
+        LEFT JOIN teams t ON ta.team_id = t.id
+        LEFT JOIN users l ON ta.leader_id = l.id
+        WHERE ta.user_id = #{userId} AND ta.type = #{type} AND ta.status = 'PENDING'
+        ORDER BY ta.application_time DESC
+    </select>
+
+    <!-- 检查反向记录（用于自动入队） -->
+    <select id="selectReverseRecord" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM team_applications
+        WHERE user_id = #{userId}
+        AND team_id = #{teamId}
+        AND type = #{type}
+        AND status = 'PENDING'
+        ORDER BY created_at DESC
+        LIMIT 1
+    </select>
+
+    <!-- 根据队长ID查询待审核的申请 -->
+    <select id="selectPendingByLeaderId" parameterType="java.lang.Long" resultMap="DetailResultMap">
+        SELECT <include refid="Detail_Column_List"/>
+        FROM team_applications ta
+        LEFT JOIN users u ON ta.user_id = u.id
+        LEFT JOIN teams t ON ta.team_id = t.id
+        LEFT JOIN users l ON ta.leader_id = l.id
+        WHERE ta.leader_id = #{leaderId} AND ta.status = 'PENDING'
+        ORDER BY ta.application_time ASC
+    </select>
+
+    <!-- 根据状态查询申请 -->
+    <select id="selectByStatus" resultMap="DetailResultMap">
+        SELECT <include refid="Detail_Column_List"/>
+        FROM team_applications ta
+        LEFT JOIN users u ON ta.user_id = u.id
+        LEFT JOIN teams t ON ta.team_id = t.id
+        LEFT JOIN users l ON ta.leader_id = l.id
+        WHERE ta.status = #{status}
+        ORDER BY ta.application_time DESC
+    </select>
+
+    <!-- 统计团队的申请数量 -->
+    <select id="countByTeamId" parameterType="java.lang.Long" resultType="int">
+        SELECT COUNT(*) FROM team_applications WHERE team_id = #{teamId}
+    </select>
+
+    <!-- 统计用户的申请数量 -->
+    <select id="countByUserId" parameterType="java.lang.Long" resultType="int">
+        SELECT COUNT(*) FROM team_applications WHERE user_id = #{userId}
+    </select>
+
+    <!-- 批量更新申请状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE team_applications 
+        SET status = #{status}, updated_at = CURRENT_TIMESTAMP
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

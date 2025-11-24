@@ -1,0 +1,722 @@
+/* 团队成员相关弹窗样式 - 优化性能版本 */
+
+/* 确保所有元素正确计算宽度 */
+.team-info-modal *,
+.team-info-modal *::before,
+.team-info-modal *::after {
+  box-sizing: border-box;
+}
+
+.member-info-modal *,
+.member-info-modal *::before,
+.member-info-modal *::after {
+  box-sizing: border-box;
+}
+
+/* 弹窗遮罩层 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+/* 团队信息弹窗 - 优化布局 */
+.team-info-modal {
+  background: linear-gradient(135deg, rgba(240, 255, 240, 0.98), rgba(230, 250, 230, 0.98));
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 成员信息弹窗 */
+.member-info-modal {
+  background: linear-gradient(135deg, rgba(240, 255, 240, 0.98), rgba(230, 250, 230, 0.98));
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 弹窗头部 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(45, 90, 45, 0.2);
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d5a2d;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background-color: rgba(45, 90, 45, 0.1);
+  color: #2d5a2d;
+}
+
+/* 弹窗内容 - 自适应布局 */
+.team-info-modal .modal-content,
+.member-info-modal .modal-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 优化滚动性能 */
+.team-info-modal .modal-content,
+.member-info-modal .modal-content {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(45, 90, 45, 0.3) transparent;
+}
+
+.team-info-modal .modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.team-info-modal .modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.team-info-modal .modal-content::-webkit-scrollbar-thumb {
+  background-color: rgba(45, 90, 45, 0.3);
+  border-radius: 3px;
+}
+
+.team-info-modal .modal-content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(45, 90, 45, 0.5);
+}
+
+/* 团队基础信息 */
+.team-basic-info {
+  margin-bottom: 24px;
+  background: transparent;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-basic-info h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d5a2d;
+  border-bottom: 2px solid rgba(45, 90, 45, 0.2);
+  padding-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  box-sizing: border-box;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.info-item label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.info-item span {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.info-item a {
+  color: #2d5a2d;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.info-item a:hover {
+  color: #1a3a1a;
+  text-decoration: underline;
+}
+
+.team-description {
+  margin-bottom: 20px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-description label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.team-description p {
+  margin: 0;
+  padding: 12px;
+  background: rgba(45, 90, 45, 0.05);
+  border-radius: 8px;
+  line-height: 1.6;
+  color: #333;
+  border: 1px solid rgba(45, 90, 45, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.team-skills {
+  margin-bottom: 20px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-skills label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.skills-tags,
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: transparent;
+}
+
+.skill-tag {
+  background: rgba(45, 90, 45, 0.12);
+  color: #2d5a2d;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid rgba(45, 90, 45, 0.2);
+  white-space: nowrap;
+}
+
+/* 团队成员信息 */
+.team-members-info {
+  flex: 1;
+  background: transparent;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-members-info h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d5a2d;
+  border-bottom: 2px solid rgba(45, 90, 45, 0.2);
+  padding-bottom: 8px;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 成员网格 - 单列布局充分利用宽度 */
+.members-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 成员卡片 - 横向布局 */
+.member-card {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(45, 90, 45, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.member-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 90, 45, 0.15);
+  border-color: rgba(45, 90, 45, 0.3);
+}
+
+.member-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(45, 90, 45, 0.2);
+  flex-shrink: 0;
+}
+
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-info {
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+}
+
+.member-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.member-role {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: #2d5a2d;
+  font-weight: 500;
+  background: rgba(45, 90, 45, 0.12);
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.member-major {
+  margin: 0 0 4px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.join-time {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.member-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.view-detail-btn {
+  background: rgba(45, 90, 45, 0.85);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.view-detail-btn:hover {
+  background: rgba(45, 90, 45, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(45, 90, 45, 0.3);
+}
+
+.view-detail-btn:active {
+  transform: translateY(0);
+}
+
+/* 无成员状态 */
+.no-members {
+  text-align: center;
+  color: #666;
+  background: transparent;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  padding: 40px;
+}
+
+/* 成员详细信息样式 */
+.member-basic-info {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+  background: transparent;
+}
+
+.member-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid rgba(45, 90, 45, 0.2);
+}
+
+.member-avatar-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-details h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d5a2d;
+  overflow-wrap: break-word;
+}
+
+.member-role-large {
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+  color: #2d5a2d;
+  font-weight: 500;
+  background: rgba(45, 90, 45, 0.12);
+  padding: 6px 14px;
+  border-radius: 16px;
+  display: inline-block;
+}
+
+.member-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  background: transparent;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-badge.active {
+  background: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+
+.status-badge.inactive {
+  background: rgba(156, 163, 175, 0.15);
+  color: #6b7280;
+}
+
+.status-badge.pending {
+  background: rgba(251, 191, 36, 0.15);
+  color: #d97706;
+}
+
+/* 技能和荣誉部分 */
+.member-skills,
+.member-honours {
+  margin-bottom: 24px;
+  background: transparent;
+}
+
+.member-skills h4,
+.member-honours h4 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d5a2d;
+}
+
+.member-skill {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.honours-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: transparent;
+}
+
+.honour-item {
+  background: rgba(45, 90, 45, 0.05);
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(45, 90, 45, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.honour-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.honour-title {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+  overflow-wrap: break-word;
+}
+
+.honour-date {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.honour-actions {
+  flex-shrink: 0;
+}
+
+.view-certificate-btn {
+  background: rgba(45, 90, 45, 0.85);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.view-certificate-btn:hover {
+  background: rgba(45, 90, 45, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(45, 90, 45, 0.3);
+}
+
+.view-certificate-btn:active {
+  transform: translateY(0);
+}
+
+.no-additional-info {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  background: transparent;
+}
+
+/* 加载和错误状态 */
+.modal-loading,
+.modal-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  background: transparent;
+  flex: 1;
+}
+
+.modal-loading p,
+.modal-error p {
+  margin: 0 0 16px 0;
+  color: #666;
+  font-size: 1rem;
+}
+
+.retry-btn {
+  background: rgba(45, 90, 45, 0.85);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.retry-btn:hover {
+  background: rgba(45, 90, 45, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(45, 90, 45, 0.3);
+}
+
+.retry-btn:active {
+  transform: translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .team-info-modal {
+    width: 95%;
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .team-info-modal,
+  .member-info-modal {
+    width: 100%;
+    max-height: 90vh;
+  }
+
+  .team-info-modal .modal-content,
+  .member-info-modal .modal-content {
+    padding: 16px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .member-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .member-info {
+    text-align: center;
+  }
+
+  .member-actions {
+    justify-content: center;
+  }
+
+  .member-basic-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .member-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .honour-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+    padding: 16px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1.75rem;
+  }
+
+  .member-avatar-large {
+    width: 100px;
+    height: 100px;
+  }
+
+  .member-details h3 {
+    font-size: 1.25rem;
+  }
+
+  .member-card {
+    padding: 16px;
+  }
+
+  .member-avatar {
+    width: 60px;
+    height: 60px;
+  }
+}

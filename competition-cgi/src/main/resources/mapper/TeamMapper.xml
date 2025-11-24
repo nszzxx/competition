@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.TeamMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.Team">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="leader_id" property="leaderId" jdbcType="BIGINT"/>
+        <result column="need_skills" property="needSkills" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, name, description, leader_id, need_skills, created_at
+    </sql>
+
+    <!-- 根据ID查找团队 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据竞赛ID查找团队 -->
+    <select id="selectByCompetitionId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据队长ID查找团队 -->
+    <select id="selectByLeaderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        WHERE leader_id = #{leaderId,jdbcType=BIGINT}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据团队名称查找 -->
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        WHERE name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 检查团队名称是否存在 -->
+    <select id="existsByName" parameterType="java.lang.String" resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM teams
+        WHERE name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据竞赛ID和队长ID查找团队 -->
+    <select id="selectByCompetitionIdAndLeaderId" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        -- competition_id 字段已移除，如需按竞赛筛选请用新视图
+        AND leader_id = #{leaderId,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据团队名称模糊查询 -->
+    <select id="selectByNameContainingIgnoreCase" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        WHERE LOWER(name) LIKE LOWER(CONCAT('%', #{name,jdbcType=VARCHAR}, '%'))
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据团队名称和竞赛ID模糊查询 -->
+    <select id="selectByNameContainingIgnoreCaseAndCompetitionId" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        WHERE LOWER(name) LIKE LOWER(CONCAT('%', #{name,jdbcType=VARCHAR}, '%'))
+        -- competition_id 字段已移除，如需按竞赛筛选请用新视图
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 查询所有团队 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM teams
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 插入团队 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.Team" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO teams
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="description != null">description,</if>
+            <if test="leaderId != null">leader_id,</if>
+            <if test="needSkills != null">need_skills,</if>
+            <if test="createdAt != null">created_at,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="description != null">#{description,jdbcType=VARCHAR},</if>
+            <if test="leaderId != null">#{leaderId,jdbcType=BIGINT},</if>
+            <if test="needSkills != null">#{needSkills,jdbcType=VARCHAR},</if>
+            <if test="createdAt != null">#{createdAt,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新团队信息 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.Team">
+        UPDATE teams
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="description != null">description = #{description,jdbcType=VARCHAR},</if>
+            <if test="leaderId != null">leader_id = #{leaderId,jdbcType=BIGINT},</if>
+            <if test="needSkills != null">need_skills = #{needSkills,jdbcType=VARCHAR},</if>
+            <if test="createdAt != null">created_at = #{createdAt,jdbcType=TIMESTAMP},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据ID删除团队 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM teams
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 统计团队总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM teams
+    </select>
+
+    <!-- 竞赛团队卡片结果映射 -->
+    <resultMap id="CompetitionTeamCardResultMap" type="com.cdnu.cgi.dto.CompetitionTeamCardDto">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="need_skills" property="needSkills" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="leader_id" property="leaderId" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="leader_display_name" property="leaderDisplayName" jdbcType="VARCHAR"/>
+        <result column="team_member_count" property="teamMemberCount" jdbcType="INTEGER"/>
+        <result column="team_skills" property="teamSkills" jdbcType="VARCHAR"/>
+        <result column="member_ids" property="memberIds" jdbcType="VARCHAR"/>
+        <result column="competition_id" property="competitionId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <!-- 根据竞赛ID获取团队卡片信息 -->
+    <select id="selectCompetitionTeamCards" parameterType="java.lang.Long" resultMap="CompetitionTeamCardResultMap">
+        SELECT * FROM competition_team_cards
+        WHERE competition_id = #{competitionId,jdbcType=BIGINT}
+        ORDER BY id DESC
+    </select>
+
+</mapper>

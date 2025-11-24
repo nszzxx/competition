@@ -1,0 +1,264 @@
+/* 技能分析格式化样式 - Dark Premium Theme */
+.skill-analysis-content {
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.skill-analysis-content .analysis-title {
+  color: white;
+  font-size: 1.5em;
+  margin: 20px 0 15px 0;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.skill-analysis-content .user-tag {
+  font-size: 0.8em;
+  color: #94a3b8;
+  font-weight: normal;
+}
+
+.skill-analysis-content .section-title {
+  color: #f1f5f9;
+  font-size: 1.2em;
+  margin: 15px 0 10px 0;
+  font-weight: 600;
+}
+
+.skill-analysis-content .analysis-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border-left: 4px solid #3498db;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left-width: 4px;
+}
+
+.skill-analysis-content .skill-item {
+  margin: 10px 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skill-analysis-content .skill-name {
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.skill-analysis-content .skill-desc {
+  color: #cbd5e1;
+  margin-left: 8px;
+}
+
+.skill-analysis-content .analysis-point {
+  margin: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  list-style: none;
+}
+
+.skill-analysis-content .analysis-point::before {
+  content: "•";
+  color: #3498db;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* 趋势分析格式化样式 */
+.trends-analysis-content {
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.trends-analysis-content .trends-title {
+  color: white;
+  font-size: 1.5em;
+  margin: 20px 0 15px 0;
+  border-bottom: 2px solid #e74c3c;
+  padding-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.trends-analysis-content .trends-section-title {
+  color: #f1f5f9;
+  font-size: 1.2em;
+  margin: 15px 0 10px 0;
+  font-weight: 600;
+}
+
+.trends-analysis-content .trends-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border-left: 4px solid #e74c3c;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left-width: 4px;
+}
+
+.trends-analysis-content .trend-keyword {
+  color: #f87171;
+  font-weight: 600;
+}
+
+.trends-analysis-content .highlight-keyword {
+  background: linear-gradient(120deg, #ff6b6b 0%, #feca57 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  padding: 2px 4px;
+}
+
+.trends-analysis-content .trend-point {
+  margin: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  list-style: none;
+}
+
+.trends-analysis-content .trend-point::before {
+  content: "📈";
+  position: absolute;
+  left: 0;
+}
+
+/* 可滑动内容框样式 */
+.scrollable-content {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin-top: 12px;
+  position: relative;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scrollable-content:hover {
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.scrollable-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+  width: 8px;
+}
+
+/* 滚动渐变遮罩 */
+.scrollable-content::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, rgba(15, 23, 42, 0.8));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0 0 12px 12px;
+  z-index: 1;
+}
+
+.scrollable-content[data-scrollable="true"]::before {
+  opacity: 1;
+}
+
+/* 滑动提示 */
+.scrollable-content::after {
+  content: "📜 可滑动查看";
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 11px;
+  color: #94a3b8;
+  background: rgba(30, 41, 59, 0.9);
+  padding: 4px 8px;
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+/* 当内容可滚动时显示提示 */
+.scrollable-content[data-scrollable="true"]::after {
+  opacity: 0.8;
+}
+
+/* 鼠标悬停时显示提示 */
+.scrollable-content:hover::after {
+  opacity: 1;
+}
+
+/* 当内容不需要滚动时隐藏提示 */
+.scrollable-content:not([data-scrollable="true"])::after {
+  display: none;
+}
+
+/* 确保搜索按钮不受影响 */
+.search-input-wrapper .action-btn,
+.search-actions .action-btn,
+.ai-search-container .action-btn {
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+  position: relative !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+
+  .skill-analysis-content .analysis-title,
+  .trends-analysis-content .trends-title {
+    font-size: 1.3em;
+  }
+
+  .skill-analysis-content .section-title,
+  .trends-analysis-content .trends-section-title {
+    font-size: 1.1em;
+  }
+
+  .skill-analysis-content .analysis-section,
+  .trends-analysis-content .trends-section {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .skill-analysis-content .skill-item {
+    padding: 10px;
+  }
+
+  .scrollable-content {
+    max-height: 300px;
+    padding: 12px;
+  }
+
+  .scrollable-content::after {
+    font-size: 11px;
+    top: 6px;
+    right: 8px;
+  }
+}

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdnu.cgi.mapper.UserMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.cdnu.cgi.entity.User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="major" property="major" jdbcType="VARCHAR"/>
+        <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="register_time" property="registerTime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        id, username, password, real_name, email, phone, major, avatar_url, 
+        role_id, register_time, status
+    </sql>
+
+    <!-- 根据ID查找用户 -->
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 根据用户名查找用户 -->
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users
+        WHERE username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据邮箱查找用户 -->
+    <select id="selectByEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM users
+        WHERE email = #{email,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据手机号查找用户 -->
+    <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM users
+        WHERE phone = #{phone,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据用户名、邮箱或手机号查找用户 -->
+    <select id="selectByUsernameOrEmailOrPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM users
+        WHERE username = #{identifier,jdbcType=VARCHAR}
+           OR email = #{identifier,jdbcType=VARCHAR}
+           OR phone = #{identifier,jdbcType=VARCHAR}
+        LIMIT 1
+    </select>
+
+    <!-- 根据专业查找用户列表 -->
+    <select id="selectByMajor" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users
+        WHERE major = #{major,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 检查用户名是否存在 -->
+    <select id="existsByUsername" parameterType="java.lang.String" resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM users
+        WHERE username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 检查邮箱是否存在 -->
+    <select id="existsByEmail" parameterType="java.lang.String" resultType="boolean">
+        SELECT COUNT(1) > 0
+        FROM users
+        WHERE email = #{email,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 查询所有用户 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users
+        ORDER BY id
+    </select>
+
+    <!-- 插入用户 -->
+    <insert id="insert" parameterType="com.cdnu.cgi.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="email != null">email,</if>
+            <if test="phone != null">phone,</if>
+            <if test="major != null">major,</if>
+            <if test="avatarUrl != null">avatar_url,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="status != null">status,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="realName != null">#{realName,jdbcType=VARCHAR},</if>
+            <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+            <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+            <if test="major != null">#{major,jdbcType=VARCHAR},</if>
+            <if test="avatarUrl != null">#{avatarUrl,jdbcType=VARCHAR},</if>
+            <if test="roleId != null">#{roleId,jdbcType=INTEGER},</if>
+            <if test="registerTime != null">#{registerTime,jdbcType=TIMESTAMP},</if>
+            <if test="isLeader != null">#{isLeader,jdbcType=BOOLEAN},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新用户信息 -->
+    <update id="updateById" parameterType="com.cdnu.cgi.entity.User">
+        UPDATE users
+        <set>
+            <if test="username != null">username = #{username,jdbcType=VARCHAR},</if>
+            <if test="password != null">password = #{password,jdbcType=VARCHAR},</if>
+            <if test="realName != null">real_name = #{realName,jdbcType=VARCHAR},</if>
+            <if test="email != null">email = #{email,jdbcType=VARCHAR},</if>
+            <if test="phone != null">phone = #{phone,jdbcType=VARCHAR},</if>
+            <if test="major != null">major = #{major,jdbcType=VARCHAR},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl,jdbcType=VARCHAR},</if>
+            <if test="roleId != null">role_id = #{roleId,jdbcType=INTEGER},</if>
+            <if test="registerTime != null">register_time = #{registerTime,jdbcType=TIMESTAMP},</if>
+            <if test="status != null">status = #{status,jdbcType=INTEGER},</if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 根据ID删除用户 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM users
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!-- 统计用户总数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM users
+    </select>
+
+</mapper>

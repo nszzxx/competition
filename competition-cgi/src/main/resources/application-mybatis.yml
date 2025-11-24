@@ -1,0 +1,67 @@
+# MyBatis配置
+mybatis:
+  # 指定mapper xml文件位置
+  mapper-locations: classpath:mapper/*.xml
+  # 指定实体类包路径
+  type-aliases-package: com.cdnu.compet_sys.entity
+  # MyBatis配置
+  configuration:
+    # 开启驼峰命名转换
+    map-underscore-to-camel-case: true
+    # 开启缓存
+    cache-enabled: true
+    # 延迟加载
+    lazy-loading-enabled: true
+    # 积极延迟加载
+    aggressive-lazy-loading: false
+    # 允许多结果集
+    multiple-result-sets-enabled: true
+    # 使用列标签
+    use-column-label: true
+    # 使用生成的键
+    use-generated-keys: true
+    # 自动映射行为
+    auto-mapping-behavior: partial
+    # 自动映射未知列行为
+    auto-mapping-unknown-column-behavior: warning
+    # 默认执行器类型
+    default-executor-type: simple
+    # 默认语句超时时间
+    default-statement-timeout: 25
+    # 默认获取大小
+    default-fetch-size: 100
+    # 安全行边界
+    safe-row-bounds-enabled: false
+    # 安全结果处理器
+    safe-result-handler-enabled: true
+    # 本地缓存范围
+    local-cache-scope: session
+    # JDBC类型为空时的处理
+    jdbc-type-for-null: other
+    # 延迟加载触发方法
+    lazy-load-trigger-methods: equals,clone,hashCode,toString
+    # 默认脚本语言
+    default-scripting-language: org.apache.ibatis.scripting.xmltags.XMLLanguageDriver
+    # 默认枚举类型处理器
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    # 调用setter方法当null
+    call-setters-on-nulls: false
+    # 返回实例当所有属性为null
+    return-instance-for-empty-row: false
+    # 日志前缀
+    log-prefix:
+    # 日志实现
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # VFS实现
+    vfs-impl:
+    # 使用实际参数名
+    use-actual-param-name: true
+    # 配置工厂
+    configuration-factory:
+
+# 分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    include: mybatis
+  
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/compet_sys?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: your_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  # 连接池配置
+  hikari:
+    minimum-idle: 5
+    maximum-pool-size: 20
+    auto-commit: true
+    idle-timeout: 30000
+    pool-name: DatebookHikariCP
+    max-lifetime: 1800000
+    connection-timeout: 30000
+    connection-test-query: SELECT 1
+
+# 日志配置
+logging:
+  level:
+    com.cdnu.cgi.mapper: debug
+    org.springframework.jdbc: debug
